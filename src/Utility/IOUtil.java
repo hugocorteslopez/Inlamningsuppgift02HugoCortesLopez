@@ -1,6 +1,6 @@
 package Utility;
 
-import Objects.GymMember;
+import Domain.GymMember;
 
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -9,7 +9,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -20,23 +22,26 @@ import java.util.Scanner;
  */
 public class IOUtil {
 
-    public static GymMember findMemberInFile(String filePath, String input) throws IOException {
+    public static List<GymMember> findMembersInFile(String filePath, String input) throws IOException {
+        if (input.trim().equals(""))
+            return null;
         Path path = Paths.get(filePath);
+        List<GymMember> foundMembers = new ArrayList<>();
         try (Scanner scanner = new Scanner(path)) {
             while (scanner.hasNext()) {
-                String currentLine = scanner.nextLine();
-                if (currentLine.toLowerCase().contains(input.toLowerCase())) {
-                    if (!scanner.hasNextLine())
-                        throw new NullPointerException("Date not found");
-
-                    var socialSecNumberAndName = currentLine.split(",");
+                String[] currentLine = scanner.nextLine().split(", ");
+                if (currentLine.length == 2) {
+                    var SSN = currentLine[0];
+                    var name = currentLine[1];
                     var date = LocalDate.parse(scanner.nextLine());
-
-                    return new GymMember(socialSecNumberAndName[0], socialSecNumberAndName[1], date);
+                    if (input.trim().equalsIgnoreCase(name.trim()) || input.trim().equalsIgnoreCase(SSN.trim())) {
+                        var member = new GymMember(SSN, name, date);
+                        foundMembers.add(member);
+                    }
                 }
             }
         }
-        return null;
+        return foundMembers;
     }
 
     public static void writeDataToFile(String folderPath, GymMember member) {

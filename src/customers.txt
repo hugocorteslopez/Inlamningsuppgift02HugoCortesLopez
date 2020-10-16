@@ -2,7 +2,7 @@
 2019-07-01
 8104021234, Bear Belle
 2018-12-02
-8512021234, Chamade Coriola 
+8512021234, Chamade Coriola
 2017-03-12
 7608021234, Diamanda Djedi
 2020-01-30
@@ -25,4 +25,6 @@
 7907281234, Mitsuko Mayotte
 2018-12-22
 7805211234, Nahema Ninsson
+2020-08-04
+7805211235, Nahema Ninsson
 2020-08-04

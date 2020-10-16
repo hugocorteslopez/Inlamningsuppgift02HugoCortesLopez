@@ -1,6 +1,6 @@
 package Utility;
 
-import Objects.GymMember;
+import Domain.GymMember;
 
 import java.time.LocalDate;
 
